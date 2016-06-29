@@ -19,7 +19,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
     # if Rails.env.production?
     #   "public/#{model.album.class.to_s.underscore}/#{model.id}/#{mounted_as}"
     # else
-      "#{Rails.root.to_s}/public/#{model.album.class.to_s.underscore}/#{model.id}/#{mounted_as}"
+      "#{Rails.root.to_s}/public/#{model.class.to_s.underscore}/#{model.id}/#{mounted_as}"
     # end
   end
 

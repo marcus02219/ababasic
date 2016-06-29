@@ -10,7 +10,7 @@ class Client
   field :diagnosis,               type: String, default: ""
   field :school,                  type: String, default: ""
   field :photo,                   type: String, default: ""
-  
+
   def photo_url
   	if self.photo.url.nil?
   		""
@@ -21,5 +21,9 @@ class Client
     		self.photo.url.gsub("#{Rails.root.to_s}/public/album/", "/public/album/")
       # end
   	end
+  end
+
+  def info_by_json
+    {id: self.id.to_s, first_name: self.first_name, last_name: self.last_name, birthday: self.birthday, diagnosis: self.diagnosis, school: self.school, photo: self.photo_url}
   end
 end

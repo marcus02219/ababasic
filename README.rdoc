@@ -6,11 +6,40 @@
     POST: /api/v1/accounts/create
 
     parameters accepted
-      'email'       String,      *required
-      'password'    String,      *required
-      'first_name'   String,      optional
-      'last_name'    String,     *required
+      email:          String *required
+      password:       String *required minimum 6
+      name:           String *required
+      user_type:      String *required
+      birthday:       Date *required ex: '1980-5-20'
+      diagnosis:      String *required
+      school:         String *required
+      photo:          File *required
 
+      curl \
+        -F "email=tester3@email.com" \
+        -F "password=tester1" \
+        -F "name=tester" \
+        -F "user_type=A" \
+        -F "birthday=2016-5-20" \
+        -F "diagnosis=ttt" \
+        -F "school=first school" \
+        -F "photo=@/Users/marcus/Documents/data/me1.jpg" \
+        http://localhost:3000/api/v1/accounts/create
+      results:
+      {"status":"success",
+        "data":{
+          "id":"577330963b27547fcc000001",
+          "name":"tester",
+          "user_type":"A",
+          "email":"tester3@email.com",
+          "birthday":"2016-05-20",
+          "token":"zqTgTKo7WJGgnFxDTRVN",
+          "school":"first school",
+          "photo":"photo_url",
+          "trials":[],
+          "clients":[]
+        }
+      }
 ==== Destroy account API
     POST: /api/v1/accounts/destroy
     parameters:
@@ -26,119 +55,82 @@
       'email'      String,      *required
       'password'   String,      *requried
     results:
-      {id,user_name,email,token, auth_id,social, avatar, state, phone}
+
+    curl \
+      -F "email=tester3@email.com" \
+      -F "password=tester1" \
+      http://localhost:3000/api/v1/accounts/sign_in
 
 
-==== Sign In(from social)
-
-    POST: /api/v1/accounts/social_sign_in
-
-    parameters accepted
-      email:        String *required
-      social:       String *required
-      toke:         String *required
-      first_name:   String *required
-      last_name:    String *required
-    results:
-      {id,user_name,email,token, auth_id,social, avatar, state, phone}
-    ex:
-    curl -X POST -H "Content-Type: application/json" http://localhost:3000/api/v1/accounts/social_sign_in -d '{"email":"facebook@email.com","token":"asdfasdfasdfasdf", "social":"facebook", "first_name":"fname", "last_name":"lname"}'
-    curl -X POST -H "Content-Type: application/json" http://localhost:3000/api/v1/accounts/social_sign_in -d '{"email":"twitter@ababasic.com","token":"asdfasdfasdfasdf", "social":"twitter", "first_name":"fname", "last_name":"lname"}'
 ==== Sign Out
     POST: 'api/v1/accounts/sign_out'
 
     parameters accepted
     'email'      String,      *required
 
-
-==== Forgotten Password
-    GET: /api/v1/accounts/forgot_password
-    parameters accepted
-      'email'     String,       *required
-    results:
-      email will be sent and return success string
-
-== Album API
-==== Get Albums
-  GET: /api/v1/albums
-  parameters accepted
-    'token'       String,      *required
-  results
-    [{id, name, photos}, {id, name, photos}]
-==== Get Album
-  GET: /api/v1/albums/get_album
-  parameters accepted
-    'token'       String,      *required
-    'album_id'    String,      *required
-  results
-    {id, name, photos:{[]}}
-==== Create Album
-    POST: /api/v1/albums
-    parameters accepted
-      'token'     String,      *required
-      'name'      String,      *required
-    results
-      {album_id}
-    ex: curl -X POST -H "Content-Type: application/json" http://localhost:3000/api/v1/albums -d '{"token":"dkzMxP9_HCfNPzV3HUz8","name":"album5"}'
-
-==== Change Album name
-    PUT: /api/v1/albums
-    parameters:
-      token:        String *required
-      album_id:     String *required
-      name:         String *required
-    results:
-      return album id
-    ex: curl -X PUT -H "Content-Type: application/json" http://localhost:3000/api/v1/albums -d '{"token":"23xdaXnjRexaPyfqDsXs","name":"album5", "album_id":"5746edee8b1fcf079c000000"}'
-==== Delete Album
-    DELETE: /api/v1/albums
-    parameters:
-      token:      String *required
-      album_id:   String *required
-    results:
-      return album id
-    ex: curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/api/v1/albums -d '{"token":"23xdaXnjRexaPyfqDsXs","album_id":"5746edf58b1fcf079c000001"}'
-==== Upload Photo
-  POST: /api/v1/albums/upload_photo
-  parameters accepted
-    'token'       String,      *required
-    'album_id'    String,      *required
-    'photo'       File,        *required
-    'thumbnail'   File,        *required
-    'name'        String,      *required
-  results
-    {photo_id}
-  ex:
     curl \
-      -F "token=zfSnPC5iYaR37VrvpCdz" \
-      -F "album_id=5769e9a51d41c81063000002" \
-      -F "name=ttt" \
-      -F "photo=@/Users/marcus/Documents/data/me1.jpg" \
-      -F "thumbnail=@/Users/marcus/Documents/data/me1.jpg" \
-      http://198.58.105.103/api/v1/albums/upload_photo
-==== Change Photo
-      POST: /api/v1/albums/change_photo
-      parameters:
-        token:      String *required
-        photo_id:   String *required
-        photo:      File *required
-        thumbnail:   File *required
-        name:       String *optional
-      results:
-        return album id
-==== Get Photos
-  GET: /api/v1/albums/photos
-  parameters accepted
-    'token'       String,      *required
-    'album_id'    String,      *required
-  results
-    success=>{id,photo:{[]}}
+      -F "email=tester3@email.com" \
+      http://localhost:3000/api/v1/accounts/sign_out
 
-==== Delete Photo
-    DELETE: /api/v1/albums/photo
-    parameters:
-      token:      String *required
-      photo_id:   String *required
-    results:
-      return photo id
-    ex: curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/api/v1/albums/photo -d '{"token":"23xdaXnjRexaPyfqDsXs","photo_id":"5746edf58b1fcf079c000001"}'
+== Client API
+==== Create client
+  POST: /api/v1/clients
+    parameters accepted
+      'token'         String,      *required
+      'first_name'    String,      *required
+      'last_name'     String,      *required
+      'birthday'      String,      *required
+      'diagnosis'     String,      *required
+      'school'        String,      *required
+      'photo'         File,        *required
+    results
+      {status: :success, data: {client data}}
+    curl \
+      -F "token=zqTgTKo7WJGgnFxDTRVN" \
+      -F "first_name=fname" \
+      -F "last_name=lname" \
+      -F "birthday=2016-5-20" \
+      -F "diagnosis=diagnosis" \
+      -F "school=first school" \
+      -F "photo=@/Users/marcus/Documents/data/me1.jpg" \
+      http://localhost:3000/api/v1/clients
+
+==== Get client by client_id
+  GET: /api/v1/clients
+    parameters accepted
+      'token'         String,       *required
+      'client_id'     String,       * required
+    results
+      {status: :success, data: {trial data}}
+    http://localhost:3000/api/v1/clients?token=zqTgTKo7WJGgnFxDTRVN&client_id=577337943b27547fcc000002
+
+== Trial API
+==== Create trial
+  POST: /api/v1/trials
+    parameters accepted
+      'token'         String,      *required
+      'name'          String,      *required
+      'number'        String,      *required
+      'result'        String,      *required
+      'level'         String,      *required
+      'language'      String,      *required
+      'prompt_type'   String,        *required
+    results
+      {status: :success, data: {trial data}}
+      curl \
+        -F "token=zqTgTKo7WJGgnFxDTRVN" \
+        -F "name=tname" \
+        -F "number=6" \
+        -F "result=60" \
+        -F "level=5" \
+        -F "language=first language" \
+        -F "prompt_type= prompt" \
+        http://localhost:3000/api/v1/trials
+==== Get triby by trial_id
+  GET: /api/v1/trials
+    parameters accepted
+      'token'         String,       *required
+      'trial_id'     String,       * required
+    results
+      {status: :success, data: {trial data}}
+    http://localhost:3000/api/v1/trials?token=zqTgTKo7WJGgnFxDTRVN&trial_id=57733e403b27548020000002

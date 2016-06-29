@@ -6,14 +6,14 @@ class HomeController < ApplicationController
   # Create account API
   # POST: /api/v1/accounts/create
   # parameters:
-  #   email:          String *required
-  #   password:       String *required minimum 6
-  #   name:           String *required
-  #   user_type:      String *required
-  #   birthday:       Date *required ex: '1980-5-20'
-  #   diagnosis:      String *required
-  #   school:         String *required
-  #   photo:          File *required
+    # email:          String *required
+    # password:       String *required minimum 6
+    # name:           String *required
+    # user_type:      String *required
+    # birthday:       Date *required ex: '1980-5-20'
+    # diagnosis:      String *required
+    # school:         String *required
+    # photo:          File *required
 
 
   # results:

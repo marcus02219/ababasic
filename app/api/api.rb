@@ -5,5 +5,6 @@ class API < Grape::API
 
   # load remaining API endpoints
   mount Endpoints::Accounts
-  mount Endpoints::Albums
+  mount Endpoints::Trials
+  mount Endpoints::Clients
 end
