@@ -69,12 +69,15 @@ gem 'simple_token_authentication'
 
 gem 'redis'
 gem 'resque'
-gem 'figaro'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'letter_opener'
   gem 'byebug'
 end
+
+gem 'puma'
+gem 'unicorn'
+gem 'figaro'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
@@ -89,6 +92,3 @@ group :development do
   gem 'capistrano-bundler', require: false
   gem 'capistrano3-puma',   require: false
 end
-
-gem 'puma'
-gem 'unicorn'
