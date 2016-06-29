@@ -10,36 +10,33 @@
       password:       String *required minimum 6
       name:           String *required
       user_type:      String *required
-      birthday:       Date *required ex: '1980-5-20'
-      diagnosis:      String *required
-      school:         String *required
-      photo:          File *required
 
       curl \
         -F "email=tester3@email.com" \
         -F "password=tester1" \
         -F "name=tester" \
         -F "user_type=A" \
-        -F "birthday=2016-5-20" \
-        -F "diagnosis=ttt" \
-        -F "school=first school" \
-        -F "photo=@/Users/marcus/Documents/data/me1.jpg" \
         http://localhost:3000/api/v1/accounts/create
       results:
-      {"status":"success",
-        "data":{
-          "id":"577330963b27547fcc000001",
-          "name":"tester",
-          "user_type":"A",
-          "email":"tester3@email.com",
-          "birthday":"2016-05-20",
-          "token":"zqTgTKo7WJGgnFxDTRVN",
-          "school":"first school",
-          "photo":"photo_url",
-          "trials":[],
-          "clients":[]
-        }
-      }
+      {"status":"success", "data":"zqTgTKo7WJGgnFxDTRVN"}
+==== User info Setup
+  POST: /api/v1/accounts/setup
+    parameters accepted
+      token:          String,      *required
+      birthday:       Date *required ex: '1980-5-20'
+      diagnosis:      String *required
+      school:         String *required
+      photo:          File *required
+    results
+      {status: :success, data: {user data}}
+    curl \
+      -F "token=zqTgTKo7WJGgnFxDTRVN" \
+      -F "birthday=2016-7-20" \
+      -F "diagnosis=ttt" \
+      -F "school=last school" \
+      -F "photo=@/Users/marcus/Documents/data/me1.jpg" \
+      http://localhost:3000/api/v1/accounts/setup
+
 ==== Destroy account API
     POST: /api/v1/accounts/destroy
     parameters:

@@ -10,7 +10,8 @@ module Endpoints
         { :ping => 'gwangming' }
       end
 
-      # POST: /api/v1/clients
+      # User info Setup
+      # POST: /api/v1/accounts/setup
       #   parameters accepted
       #     token:          String,      *required
       #     birthday:       Date *required ex: '1980-5-20'
