@@ -7,7 +7,8 @@
 # Ignore bundler config.
 /.bundle
 /config/secrets.yml
-/public/album/
+/public/user/
+/public/client/
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep
