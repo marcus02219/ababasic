@@ -5,11 +5,19 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+
+  mount_uploader :photo, PhotoUploader
   ## Database authenticatable
-  field :first_name,         type: String, default: ""
-  field :last_name,          type: String, default: ""
+  field :name,                type: String, default: ""
+  field :user_type,           type: String, default: ""
+  field :birthday,            type: Date, default: ""
+  field :diagnosis,           type: String, default: ""
+  field :school,              type: String, default: ""
+  field :photo,               type: String, default: ""
+
   field :email,              type: String, default: ""
   field :encrypted_password, type: String, default: ""
+
 
   ## Recoverable
   field :reset_password_token,   type: String
@@ -44,49 +52,87 @@ class User
   acts_as_token_authenticatable
   field :authentication_token,      :type => String
 
-  has_many :albums, dependent: :destroy
+  has_many :trials, dependent: :destroy
+  has_many :clients, dependent: :destroy
 
-  def name
-    [self.first_name, self.last_name].join(" ")
-  end
+
   def self.find_by_token(token)
     User.where(:authentication_token=>token).first
   end
+
+  field :name,                type: String, default: ""
+  field :user_type,           type: String, default: ""
+  field :birthday,            type: Date, default: ""
+  field :diagnosis,           type: String, default: ""
+  field :school,              type: String, default: ""
+  field :photo,               type: String, default: ""
+
 
   def info_by_json
     user = self
     user_info={
       id:user.id.to_s,
-      first_name:user.first_name == nil ? "" : user.first_name,
-      last_name:user.last_name == nil ? "" : user.last_name,
+      name:user.name == nil ? "" : user.name,
+      user_type:user.user_type == nil ? "" : user.user_type,
       email:user.email,
-      auth_id:user.user_auth_id == nil ? "" : user.user_auth_id,
+      birthday:user.birthday,
       token:user.authentication_token,
-      social:user.from_social == nil ? "" : user.from_social
+      school:user.school == nil ? "" : user.school,
+      photo:user.photo_url,
+      trials: user.trials_by_json,
+      clients: user.clients_by_json
     }
   end
 
-  def albums_by_json
-    album_list = [];
-    self.albums.each do |album|
-      album_list << {
-        id:album.id.to_s,
-        name:album.name,
-        photos:album.photos.map{|photo| photo.info_by_json},
-        created_at:album.time
+  def trials_by_json
+    json_data = []
+    trials = self.trials
+    trials.each do |trial|
+      json_data << {
+        id:trial.id.to_s,
+        name: trial.name,
+        number: trial.number,
+        result: trial.result,
+        level: trial.level,
+        language: trial.language,
+        prompt_type: trial.prompt_type
       }
     end
-    album_list
+    json_data
   end
+
+  def clients_by_json
+    json_data = []
+    clients = self.clients
+    clients.each do |client|
+      json_data << {
+        id: client.id.to_s,
+        first_name: client.first_name,
+        last_name: client.last_name,
+        birthday: client.birthday,
+        diagnosis: client.diagnosis,
+        school: client.school,
+        photo: client.photo_url
+      }
+    end
+    json_data
+  end
+
   def generate_token(column)
     begin
       self[column] = SecureRandom.urlsafe_base64
     end while User.exists?(column => self[column])
   end
-  def send_password_reset
-    generate_token(:reset_password_token)
-    self.reset_password_token = Time.zone.now
-    save!
-    UserMailer.password_reset(self).deliver
+
+  def photo_url
+  	if self.photo.url.nil?
+  		""
+  	else
+      # if Rails.env.production?
+      #   self.photo.url
+      # else
+    		self.photo.url.gsub("#{Rails.root.to_s}/public/album/", "/public/album/")
+      # end
+  	end
   end
 end

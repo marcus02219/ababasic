@@ -8,30 +8,39 @@ class HomeController < ApplicationController
   # parameters:
   #   email:          String *required
   #   password:       String *required minimum 6
-  #   first_name:     String *required
-  #   last_name:      String *required
-  #   from_social:    String *required
+  #   name:           String *required
+  #   user_type:      String *required
+  #   birthday:       Date *required ex: '1980-5-20'
+  #   diagnosis:      String *required
+  #   school:         String *required
+  #   photo:          File *required
+
+
   # results:
   #   return created user info
+
   def create
     headers['Access-Control-Allow-Origin'] = '*'
     headers['Access-Control-Request-Method'] = '*'
 
-    email        = params[:email].downcase    if params[:email].present?
-    password     = params[:password].downcase    if params[:password].present?
-    from_social  = params[:social].downcase   if params[:social].present?
-    first_name   = params[:first_name]
-    last_name    = params[:last_name]
+    email         = params[:email].downcase
+    password      = params[:password]
+    name          = params[:name]
+    user_type     = params[:user_type]
+    birthday      = params[:birthday]
+    diagnosis     = params[:diagnosis]
+    school        = params[:school]
+    photo         = params[:photo]
 
     if User.where(email:email).first.present?
-      render json:{failure: 'This email already exists. Please try another email'} and return
+      render json:{status: :failure, data: 'This email already exists. Please try another email'} and return
     end
-    user = User.new(email:email, password:params[:password], first_name:first_name, last_name:last_name, from_social:from_social)
+    user = User.new(email:email, password:params[:password], name:name, user_type:user_type, birthday:birthday, diagnosis: diagnosis, school: school, photo: photo)
     if user.save
       if sign_in(:user, user)
         render :json => {status: :success, :data => user.info_by_json}
       else
-        render json: {status: :failure, :data => 'cannot login'}
+        render json: {status: :failure, :data => 'Can not create account'}
       end
     else
       render :json => {status: :failure, :data => user.errors.messages}
@@ -103,57 +112,6 @@ class HomeController < ApplicationController
        render :json => {status: :success, :data => 'sign out'}
     end
   end
-  # Login API using social
-  # POST: /api/v1/accounts/social_sign_in
-  # parameters:
-  #   email:        String *required
-  #   social:       String *required
-  #   toke:         String *required
-  #   first_name:   String *required
-  #   last_name:    String *required
-  # results:
-  #   return user_info
 
-  def social_sign_in
-    if params[:token].present?
-      email        = params[:email].downcase    if params[:email].present?
-      from_social  = params[:social].downcase   if params[:social].present?
-      token        = params[:token]
-      password     = params[:token][0..10]
-      first_name   = params[:first_name]
-      last_name    = params[:last_name]
-
-      puts "f_name -> #{first_name}"
-
-      user = User.any_of({:email=>email}).first
-      if user.present?
-        user.update(first_name: first_name, last_name: last_name, user_auth_id: token)
-        if sign_in(:user, user)
-          render json: {status: :success, data: user.info_by_json}
-        else
-          render json: {status: :failure, :data => 'cannot login'}
-        end
-      else
-          user = User.new(
-              email:email,
-              user_auth_id:token,
-              password:password,
-              first_name:first_name,
-              last_name:last_name,
-              from_social:from_social,
-              )
-          puts "uf_name->#{user.first_name}"
-        if user.save
-          if sign_in(:user, user)
-            render json: {status: :success, :data => user.info_by_json}
-          else
-            render json: {status: :failure, :data => 'cannot login'}
-          end
-        else
-          render :json => {status: :failure, :data => user.errors.messages}
-        end
-      end
-    end
-  end
 
 end
