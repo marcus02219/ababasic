@@ -27,18 +27,19 @@ class HomeController < ApplicationController
     password      = params[:password]
     name          = params[:name]
     user_type     = params[:user_type]
-    birthday      = params[:birthday]
-    diagnosis     = params[:diagnosis]
-    school        = params[:school]
-    photo         = params[:photo]
+    # birthday      = params[:birthday]
+    # diagnosis     = params[:diagnosis]
+    # school        = params[:school]
+    # photo         = params[:photo]
 
     if User.where(email:email).first.present?
       render json:{status: :failure, data: 'This email already exists. Please try another email'} and return
     end
-    user = User.new(email:email, password:params[:password], name:name, user_type:user_type, birthday:birthday, diagnosis: diagnosis, school: school, photo: photo)
+    # user = User.new(email:email, password:params[:password], name:name, user_type:user_type, birthday:birthday, diagnosis: diagnosis, school: school, photo: photo)
+    user = User.new(email:email, password:params[:password], name:name, user_type:user_type)
     if user.save
       if sign_in(:user, user)
-        render :json => {status: :success, :data => user.info_by_json}
+        render :json => {status: :success, :data => user.authentication_token}
       else
         render json: {status: :failure, :data => 'Can not create account'}
       end
