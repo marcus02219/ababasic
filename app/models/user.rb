@@ -59,15 +59,7 @@ class User
   def self.find_by_token(token)
     User.where(:authentication_token=>token).first
   end
-
-  field :name,                type: String, default: ""
-  field :user_type,           type: String, default: ""
-  field :birthday,            type: Date, default: ""
-  field :diagnosis,           type: String, default: ""
-  field :school,              type: String, default: ""
-  field :photo,               type: String, default: ""
-
-
+  
   def info_by_json
     user = self
     user_info={

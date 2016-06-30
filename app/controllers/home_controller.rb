@@ -82,13 +82,13 @@ class HomeController < ApplicationController
 
     resource = User.find_for_database_authentication( :email => email )
     if resource.nil?
-      render :json => {status: :failure, data: 'No Such User'}, :status => 401
+      render :json => {status: :failure, data: 'No Such User'}
     else
       if resource.valid_password?( password )
         user = sign_in( :user, resource )
         render :json => {status: :success, :data => resource.info_by_json}
         else
-          render :json => {status: :failure,  data: "Password is wrong"}, :status => 401
+          render :json => {status: :failure,  data: "Password is wrong"}
         end
       end
    end
@@ -107,7 +107,7 @@ class HomeController < ApplicationController
     end
 
     if resource.nil?
-       render :json => {status: :failure, data:'No Such User'}, :status => 401
+       render :json => {status: :failure, data:'No Such User'}
     else
     sign_out(resource)
        render :json => {status: :success, :data => 'sign out'}
