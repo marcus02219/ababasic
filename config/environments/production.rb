@@ -93,6 +93,6 @@ Rails.application.configure do
     user_name: ENV["GMAIL_USERNAME"],
     password: ENV["GMAIL_PASSWORD"]
   }
-  ENV['host_url'] = 'http://52.26.92.41''
+  ENV['host_url'] = 'http://52.26.92.41'
 
 end
