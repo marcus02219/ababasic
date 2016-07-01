@@ -12,14 +12,14 @@ class Client
   field :photo,                   type: String, default: ""
 
   def photo_url
-  	if self.photo.url.nil?
+    if self.photo.url.nil?
   		""
   	else
-      # if Rails.env.production?
-      #   self.photo.url
-      # else
-    		self.photo.url.gsub("#{Rails.root.to_s}/public/album/", "/public/album/")
-      # end
+      if Rails.env.production?
+        ENV['host_url'] + self.photo.url.gsub("#{Rails.root.to_s}/public/user/", "/public/user/")
+      else
+    		ENV['host_url'] + self.photo.url.gsub("#{Rails.root.to_s}/public/user/", "/user/")
+      end
   	end
   end
 
