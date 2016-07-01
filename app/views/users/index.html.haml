@@ -1,4 +1,32 @@
 %h1 Users
-%h3
-  User count
-  = @users.count
+.container
+  %table.table
+    %thead.thead-inverse
+      %tr
+        %th #
+        %th Name
+        %th User Type
+        %th Birthday
+        %th Diagnosis
+        %th School
+        %th Photo
+        %th Clients
+        %th Trials
+        %th Actions
+    %tbody
+      -@users.each_with_index do |user, index|
+        %tr
+          %td= index
+          %td= user.name
+          %td= user.user_type
+          %td= user.birthday
+          %td= user.diagnosis
+          %td= user.school
+          %td= user.photo_url
+          %td= user.clients.count
+          %td= user.trials.count
+          %td
+            = link_to user, class: '' do
+              %span.glyphicon.glyphicon-book
+            = link_to user, class: '', method: :delete, data: { confirm: 'Are you sure?' } do
+              %span.glyphicon.glyphicon-remove

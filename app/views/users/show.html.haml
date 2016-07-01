@@ -1,0 +1,25 @@
+.container
+  %h1
+    Name:
+    = @user.name
+  %h5
+    User Type:
+    = @user.user_type
+  %h5
+    Birthday:
+    = @user.birthday
+  %h5
+    Diagnosis:
+    = @user.diagnosis
+  %h5
+    School:
+    = @user.school
+  %h5
+    Photo:
+    = @user.photo_url
+  %h5
+    Clients:
+    = @user.clients.count
+  %h5
+    Trials:
+    = @user.trials.count

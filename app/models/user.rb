@@ -43,11 +43,6 @@ class User
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
-  field :from_social,               :type => String,    :default => ""     # Social login status
-
-
-  #field :access_token,              :type => String
-  field :user_auth_id,              :type => String
 
   acts_as_token_authenticatable
   field :authentication_token,      :type => String
@@ -59,7 +54,7 @@ class User
   def self.find_by_token(token)
     User.where(:authentication_token=>token).first
   end
-  
+
   def info_by_json
     user = self
     user_info={
@@ -120,11 +115,11 @@ class User
   	if self.photo.url.nil?
   		""
   	else
-      # if Rails.env.production?
-      #   self.photo.url
-      # else
-    		self.photo.url.gsub("#{Rails.root.to_s}/public/album/", "/public/album/")
-      # end
+      if Rails.env.production?
+        ENV['host_url'] + self.photo.url.gsub("#{Rails.root.to_s}/public/user/", "/public/user/")
+      else
+    		ENV['host_url'] + self.photo.url.gsub("#{Rails.root.to_s}/public/user/", "/user/")
+      end
   	end
   end
 end

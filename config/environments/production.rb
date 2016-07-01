@@ -36,7 +36,7 @@ Rails.application.configure do
   config.assets.digest = true
   config.assets.paths << Rails.root.join("public", "assets", "flash")
   config.assets.compile = true
-  
+
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
   # Specifies the header that your server uses for sending files.
@@ -93,5 +93,6 @@ Rails.application.configure do
     user_name: ENV["GMAIL_USERNAME"],
     password: ENV["GMAIL_PASSWORD"]
   }
+  ENV['host_url'] = 'http://52.26.92.41''
 
 end
