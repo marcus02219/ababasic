@@ -16,9 +16,9 @@ class Client
   		""
   	else
       if Rails.env.production?
-        ENV['host_url'] + self.photo.url.gsub("#{Rails.root.to_s}/public/user/", "/public/user/")
+        ENV['host_url'] + self.photo.url.gsub("#{Rails.root.to_s}/public/client/", "/public/client/")
       else
-    		ENV['host_url'] + self.photo.url.gsub("#{Rails.root.to_s}/public/user/", "/user/")
+    		ENV['host_url'] + self.photo.url.gsub("#{Rails.root.to_s}/public/client/", "/client/")
       end
   	end
   end

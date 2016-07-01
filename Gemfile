@@ -65,8 +65,8 @@ gem 'devise-bootstrap-views'
 #gem 'devise-token_authenticatable'
 
 gem 'activeadmin', github: 'activeadmin'
-gem 'inherited_resources'
-gem 'activeadmin-mongoid', github: 'elia/activeadmin-mongoid', branch: 'rails4'
+# gem 'inherited_resources'
+# gem 'activeadmin-mongoid', github: 'elia/activeadmin-mongoid', branch: 'rails4'
 
 gem 'simple_token_authentication'
 
