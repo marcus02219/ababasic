@@ -45,11 +45,15 @@ module Endpoints
       get do
         user = User.find_by_token params[:token]
         if user.present?
-          client = user.clients.find(params[:client_id])
-          if client.present?
-            {status: :success, data: client.info_by_json}
+          if params[:client_id].present?
+            client = user.clients.find(params[:client_id])
+            if client.present?
+              {status: :success, data: client.info_by_json}
+            else
+              {status: :failure, data: "Can not find client"}
+            end
           else
-            {status: :failure, data: "Can not find client"}
+            {status: :success, data: user.clients_by_json}
           end
         else
           {status: :failure, data: "Please sign in"}

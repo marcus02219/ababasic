@@ -46,11 +46,15 @@ module Endpoints
       get do
         user = User.find_by_token params[:token]
         if user.present?
-          trial = user.trials.find(params[:trial_id])
-          if trial.present?
-            {status: :success, data: trial.info_by_json}
+          if params[:trial_id].present?
+            trial = user.trials.find(params[:trial_id])
+            if trial.present?
+              {status: :success, data: trial.info_by_json}
+            else
+              {status: :failure, data: "Can not find trial"}
+            end
           else
-            {status: :failure, data: "Can not find trial"}
+            {status: :success, data: user.trials_by_json}
           end
         else
           {status: :failure, data: "Please sign in"}
