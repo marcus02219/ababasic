@@ -63,6 +63,7 @@ class User
       user_type:user.user_type == nil ? "" : user.user_type,
       email:user.email,
       birthday:user.birthday,
+      diagnosis:user.diagnosis,
       token:user.authentication_token,
       school:user.school == nil ? "" : user.school,
       photo:user.photo_url,
