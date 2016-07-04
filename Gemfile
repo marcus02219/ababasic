@@ -4,10 +4,6 @@ ruby '2.2.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 
-gem 'thin'
-
-
-gem 'omniauth-facebook'
 gem 'haml-rails'
 gem 'haml2slim'
 gem 'html2haml'
@@ -39,9 +35,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'grape'
 gem 'hashie-forbidden_attributes'
 
-#facebook message
-gem 'xmpp4r_facebook'
-gem 'fb_graph'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 # Use MongoID
@@ -50,6 +43,7 @@ gem 'delayed_job_mongoid', :github => 'shkbahmad/delayed_job_mongoid'
 gem 'will_paginate_mongoid'
 # Use carrierwave for upload document and image
 gem 'carrierwave', :git => "git://github.com/jnicklas/carrierwave.git"
+#gem 'rmagick'
 gem 'mini_magick'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
@@ -58,15 +52,18 @@ gem 'aws-sdk'
 gem 'aws-ses'
 gem 'fog'
 gem 'unf'
-#gem 'rmagick'
-gem 'mini_magick'
+
 gem 'devise'
 gem 'devise-bootstrap-views'
 #gem 'devise-token_authenticatable'
 
-gem 'activeadmin', github: 'activeadmin'
+# gem 'activeadmin', github: 'activeadmin'
 # gem 'inherited_resources'
 # gem 'activeadmin-mongoid', github: 'elia/activeadmin-mongoid', branch: 'rails4'
+gem 'ransack', github: 'activerecord-hackery/ransack'
+# gem 'activeadmin',         git: 'git@bitbucket.org:Zhomart/active_admin.git', branch: 'mongoid-old'
+gem 'activeadmin',         github: 'Zhomart/active_admin', branch: 'mongoid-old'
+# gem 'activeadmin-mongoid', github: 'Zhomart/activeadmin-mongoid', branch: 'ransack'
 
 gem 'simple_token_authentication'
 

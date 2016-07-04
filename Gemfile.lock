@@ -1,8 +1,9 @@
 GIT
-  remote: git://github.com/activeadmin/activeadmin.git
-  revision: 8f650d871b8bb3136897093c4cdd5369069a5adb
+  remote: git://github.com/Zhomart/active_admin.git
+  revision: 9d6c25987bdadc43e765cf9634af25d041492c75
+  branch: mongoid-old
   specs:
-    activeadmin (1.0.0.pre4)
+    activeadmin (1.0.0.pre)
       arbre (~> 1.0, >= 1.0.2)
       bourbon
       coffee-rails
@@ -10,12 +11,21 @@ GIT
       formtastic_i18n
       inherited_resources (~> 1.6)
       jquery-rails
-      jquery-ui-rails
+      jquery-ui-rails (~> 5.0)
       kaminari (~> 0.15)
-      rails (>= 3.2, < 5.1)
+      rails (>= 3.2, < 5.0)
       ransack (~> 1.3)
-      sass-rails
-      sprockets (< 4)
+
+GIT
+  remote: git://github.com/activerecord-hackery/ransack.git
+  revision: fd94685abc0d18d30a730a57fb3dbd8aff048f7d
+  specs:
+    ransack (1.7.0)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      i18n
+      polyamorous (~> 1.3)
 
 GIT
   remote: git://github.com/jnicklas/carrierwave.git
@@ -89,7 +99,6 @@ GEM
     arbre (1.1.1)
       activesupport (>= 3.0.0)
     arel (6.0.3)
-    attr_required (1.0.1)
     autoprefixer-rails (6.3.6)
       execjs
     aws-sdk (2.2.35)
@@ -151,7 +160,6 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.1)
-    daemons (1.2.3)
     debug_inspector (0.0.2)
     delayed_job (4.1.1)
       activesupport (>= 3.0, < 5.0)
@@ -168,16 +176,8 @@ GEM
     enumerable-lazy (0.0.1)
     equalizer (0.0.11)
     erubis (2.7.0)
-    eventmachine (1.2.0.1)
     excon (0.49.0)
     execjs (2.6.0)
-    faraday (0.9.2)
-      multipart-post (>= 1.2, < 3)
-    fb_graph (2.7.17)
-      httpclient (>= 2.4)
-      multi_json (>= 1.3)
-      rack-oauth2 (>= 0.14.4)
-      tzinfo
     figaro (1.1.1)
       thor (~> 0.14)
     fission (0.5.0)
@@ -348,7 +348,6 @@ GEM
       haml (~> 4.0.0)
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
-    httpclient (2.7.1)
     i18n (0.7.0)
     ice_nine (0.11.2)
     inflecto (0.0.2)
@@ -371,7 +370,6 @@ GEM
       railties (>= 3.2.16)
     json (1.8.3)
     json_pure (1.8.3)
-    jwt (1.5.1)
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -395,7 +393,6 @@ GEM
     mono_logger (1.1.0)
     multi_json (1.11.2)
     multi_xml (0.5.5)
-    multipart-post (2.0.0)
     mustermann19 (0.4.3)
       enumerable-lazy
     net-scp (1.2.1)
@@ -403,20 +400,6 @@ GEM
     net-ssh (3.1.1)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
-    oauth2 (1.1.0)
-      faraday (>= 0.8, < 0.10)
-      jwt (~> 1.0, < 1.5.2)
-      multi_json (~> 1.3)
-      multi_xml (~> 0.5)
-      rack (>= 1.2, < 3)
-    omniauth (1.3.1)
-      hashie (>= 1.2, < 4)
-      rack (>= 1.0, < 3)
-    omniauth-facebook (3.0.0)
-      omniauth-oauth2 (~> 1.2)
-    omniauth-oauth2 (1.4.0)
-      oauth2 (~> 1.0)
-      omniauth (~> 1.2)
     origin (2.2.0)
     orm_adapter (0.5.0)
     polyamorous (1.3.0)
@@ -425,12 +408,6 @@ GEM
     rack (1.6.4)
     rack-accept (0.4.5)
       rack (>= 0.4)
-    rack-oauth2 (1.3.0)
-      activesupport (>= 2.3)
-      attr_required (>= 0.0.5)
-      httpclient (>= 2.4)
-      multi_json (>= 1.3.6)
-      rack (>= 1.1)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -461,12 +438,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.16.0)
     rake (11.1.2)
-    ransack (1.7.0)
-      actionpack (>= 3.0)
-      activerecord (>= 3.0)
-      activesupport (>= 3.0)
-      i18n
-      polyamorous (~> 1.2)
     rbvmomi (1.8.2)
       builder
       nokogiri (>= 1.4.1)
@@ -516,10 +487,6 @@ GEM
     sshkit (1.10.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    thin (1.6.4)
-      daemons (~> 1.0, >= 1.0.9)
-      eventmachine (~> 1.0, >= 1.0.4)
-      rack (~> 1.0)
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.2)
@@ -555,9 +522,6 @@ GEM
       mongoid
       will_paginate (~> 3.0)
     xml-simple (1.1.5)
-    xmpp4r (0.5.6)
-    xmpp4r_facebook (0.1.1)
-      xmpp4r
 
 PLATFORMS
   ruby
@@ -579,7 +543,6 @@ DEPENDENCIES
   delayed_job_mongoid!
   devise
   devise-bootstrap-views
-  fb_graph
   figaro
   fog
   grape
@@ -592,23 +555,21 @@ DEPENDENCIES
   letter_opener
   mini_magick
   mongoid!
-  omniauth-facebook
   puma
   rails (= 4.2.6)
+  ransack!
   redis
   resque
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   simple_token_authentication
   spring
-  thin
   turbolinks
   uglifier (>= 1.3.0)
   unf
   unicorn
   web-console (~> 2.0)
   will_paginate_mongoid
-  xmpp4r_facebook
 
 RUBY VERSION
    ruby 2.2.4p230

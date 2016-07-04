@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  resources :users
 
   devise_for :users
+
+
+  resources :users
   get 'home/index'
   root :to => 'home#index'
   mount API => '/'
